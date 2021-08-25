@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+
+{% block content  %}
+
+<header><h3>PUPILS' RECORD</h3>
+
+<a href="{{url_for('create_class')}}" ><button> <strong>CREATE CLASS</strong> </button></a></header>
+
+</br>
+
+{% if classes2|length > 0 %}
+
+	
+<table summary="" >
+<tr>
+<th>
+S/N
+</th>
+<th>CLASS NAME</th>
+<th>DETAILS</th>
+<th>ACTION</th>
+</tr>
+	
+	{%  for cl,cli in classes2.items() %}
+	<tr>
+	<td>{{loop.index}}</td>
+	<td><a href="classroom/{{cl}}/pupils"><button>{{cl|upper}}</button></a></td>
+	<td>{{cli[0]}} Pupils </br>{{cli[1]}} Subjects </td>
+	<td><!--<a href="classroom/{{cl}}">DELETE</a>--></td>
+	</tr>
+	{% endfor %}
+	
+	</table>
+	
+	
+{% endif %}
+
+	
+
+
+{%  endblock %}

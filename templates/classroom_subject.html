@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+
+{% block content  %}
+<div><a href='{{url_for('home')}}'><button>HOME</button></a> <a href="{{url_for('classroom',class_name =cl_name)}}"><button>PUPILS</button></a> <a href="{{url_for('classroom_sub',class_name =cl_name)}}"><button>SUBJECTS</button></a> <a href="{{url_for('classroom_sub',class_name =cl_name)}}"><button>TEACHERS</button></a></div>
+
+
+<header><h2>CLASS: {{cl_name|title}}</h2></header>
+
+
+{% if sub_list|length > 0 %}
+	<table summary="" >
+	<tr>
+	<th>SUBJECTS</th>	
+	<th>ACTIONS</th>
+	</tr>
+	
+	{%  for sub in sub_list %}
+	<tr>	
+	<td><a href='/{{cl_name}}/{{sub.name}}/score'>{{sub.name|title}}</a>
+	
+	
+<!--<form  action="/{{cl_name}}/{{sub.name}}/score" method="POST" >
+<div class="input-d1" >
+<input  type="hidden" name="class-name"  value ='{{cl_name}}' placeholder="Enter class name" required >
+</div>
+
+
+<div class="input-d" >
+<input id="submit" type="submit" name="submit" value="{{sub.name|upper}}">
+</div>
+
+
+</form>-->
+	
+	</td>
+	
+	
+	<td><!--<a onclick='myFunction()' href='/delete_1/{{sub.id}}'>delete</a>--></td>
+	</tr>
+	{% endfor %}
+	</table>
+
+	
+	<form  action="/add_subject" >
+<div class="submit-div" >
+<input id="submit" type="submit" name="submit" value="ADD MORE SUBJECTS">
+</div>
+</br>
+</form>
+
+<p class="links"><a href="/{{cl_name}}/broad_sheet">BROAD SHEET</a></p>
+</br>
+	{% else %}
+	<p>This class has no subject yet</p>
+<form  action="/add_subject" >
+<div class="submit-div" >
+<input id="submit" type="submit" name="submit" value="ADD SUBJECTS">
+</div>
+</form>
+	
+{% endif %}
+
+
+
+
+
+
+
+
+{%  endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+
+{% block content  %}
+
+<h3>Add Subject to {{cln}}</h3>
+
+
+
+
+<form  action="/add_more_subject" method="POST" >
+
+<div>
+<label>
+CLASS NAME
+</label>
+
+<select id="dropdown" name="class-name"  required>
+<option  selected value="{{cln}}">{{cln}}</option>
+{% if class_list|length > 0 %}
+	{% for clist in class_list %}
+<option value="{{clist}}">{{clist}}</option>
+	{% endfor %}
+{% endif %}
+
+</select>
+</div>
+
+
+
+
+
+<div class="input-d1" >
+<label>Subject</label>
+<input  type="text" name="subject" placeholder="Enter subject" required >
+</div>
+
+
+<div class="input-d" >
+<input id="submit" type="submit" name="submit" value="ADD SUBJECTS">
+</div>
+
+
+</div>
+
+</form>
+
+<P><a href="classroom/{{cln}}">Enter Class</a></P>
+
+{%  endblock %}

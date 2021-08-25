@@ -1,0 +1,65 @@
+{% extends 'base.html'%}
+
+{% block content  %}
+
+<h2>Add pupils to {{cln}}</h2>
+
+<form  action="/add_more_pupil" method="POST" >
+
+<div>
+<label>
+CLASS NAME
+</label>
+
+<select id="dropdown" name="class-name"  required>
+<option  selected value="{{cln}}">{{cln}}</option>
+{% if class_list|length > 0 %}
+	{% for clist in class_list %}
+<option value="{{clist}}">{{clist}}</option>
+	{% endfor %}
+{% endif %}
+
+</select>
+</div>
+
+
+
+
+<div class="input-d1" >
+<label>Surname Name</label>
+<input  type="text" name="surname" placeholder="Enter name" required >
+</div>
+
+<div class="input-d1" >
+<label>First Name</label>
+<input  type="text" name="first-name" placeholder="Enter name" required >
+</div>
+
+
+<div>
+<label> 
+<input class="input2" name="sex" value="male" type="radio" checked="">
+Male
+</label>
+</div>
+
+
+<div>
+<label> 
+<input class="input2" name="sex" value="female" type="radio" checked="">
+Female
+</label>
+</div>
+
+<div class="input-d" >
+<input id="submit" type="submit" name="submit" value="ADD PUPIL">
+</div>
+
+
+</div>
+
+</form>
+
+<P><a href="classroom/{{cln}}">GO TO CLASS</a></P>
+
+{%  endblock %}

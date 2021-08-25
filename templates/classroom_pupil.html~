@@ -1,0 +1,128 @@
+{% extends 'base.html'%}
+
+{% block content  %}
+<div id="menu-div"><a class="menu" href='{{url_for('home')}}'><button class="">HOME</button></a> <button class="menu" id="c_pupil" onclick="displayMe(this.id)" >PUPILS</button> <button class="menu" id="c_subject"  onclick="displayMe(this.id)" >SUBJECTS</button> <button class="menu" id="c_teacher" onclick="displayMe(this.id)" >TEACHERS</button></div>
+
+<header><h2>CLASS: {{cl_name|title}}</h2></header>
+
+
+
+<div style="display:block;" id="classroom_pupil">
+
+
+
+{% if pupils|length > 0 %}
+	<table summary="" >
+	<tr>
+	<th>S/N</th>	
+	<th>NAME OF PUPILS</th>
+	<th>SEX</th>
+	<th>D.O.B</th>
+	<th>ACTION</th>
+	</tr>
+	
+	{%  for pup in pupils %}
+	<tr>
+	<td>{{loop.index}}</td>
+	<td>{{pup.l_name|title + ' ' + pup.f_name|title}}</td>
+	<td>{{pup.gender|title}}</td>
+	<td>{{pup.dob}} </td>
+	<td><a href='/delete/{{pup.id}}'>delete</a></td>
+	{% endfor %}
+	
+	</table>
+	<form  action="/add_pupil" method="POST" >
+<div class="input-d1" >
+
+<input  type="hidden" name="class-name"  value ='{{cl_name}}' placeholder="Enter class name" required >
+</div>
+<div class="submit-div" >
+<input id="submit" type="submit" name="submit" value="ADD MORE PUPILS">
+</div>
+
+
+</form>
+	{% else %}
+	<p>This class has no pupils yet</p>
+	
+		
+	<form  action="/add_pupil" method="POST" >
+<div class="input-d1" >
+
+<input  type="hidden" name="class-name"  value ='{{cl_name}}' placeholder="Enter class name" required >
+</div>
+<div class="submit-div" >
+<input id="submit" type="submit" name="submit" value="ADD PUPILS">
+</div>
+</form>
+	
+{% endif %}
+</div>
+
+
+<div  style="display:none;" id="classroom_subject">
+
+{% if subjects|length > 0 %}
+	<table summary="" >
+	<tr>
+	<th>SUBJECTS</th>	
+	<th>ACTIONS</th>
+	</tr>
+	
+	{%  for sub in subjects %}
+	<tr>	
+	<td><a href='/{{cl_name}}/{{sub.name}}/score'>{{sub.name|title}}</a>
+	
+	
+<!--<form  action="/{{cl_name}}/{{sub.name}}/score" method="POST" >
+<div class="input-d1" >
+<input  type="hidden" name="class-name"  value ='{{cl_name}}' placeholder="Enter class name" required >
+</div>
+
+
+<div class="input-d" >
+<input id="submit" type="submit" name="submit" value="{{sub.name|upper}}">
+</div>
+
+
+</form>-->
+	
+	</td>
+	
+	
+	<td><!--<a onclick='myFunction()' href='/delete_1/{{sub.id}}'>delete</a>--></td>
+	</tr>
+	{% endfor %}
+	</table>
+
+	
+	<form  action="/add_subject" >
+<div class="submit-div" >
+<input id="submit" type="submit" name="submit" value="ADD MORE SUBJECTS">
+</div>
+</br>
+</form>
+
+<p class="links"><a href="/{{cl_name}}/broad_sheet">BROAD SHEET</a></p>
+</br>
+	{% else %}
+	<p>This class has no subject yet</p>
+<form  action="/add_subject" >
+<div class="submit-div" >
+<input id="submit" type="submit" name="submit" value="ADD SUBJECTS">
+</div>
+</form>
+	
+{% endif %}
+
+
+
+</div>
+
+<div  style="display:none;" id="classroom_teacher">
+<p>There is work in progress on the teachers section.</p>
+</div>
+
+
+
+{%  endblock %}

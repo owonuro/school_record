@@ -1,0 +1,39 @@
+<!--Tis is a tech document about python-->
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>LUTH_CMUL_MCS</title>
+<meta charset="UTF-8"  />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" />
+<script type="text/javascript" src="{{url_for('static', filename ='js/pupil_rec.js' )}}"> </script>
+
+</head>
+
+<body onload="listOfAs()">
+<nav id="navbar">
+<header><h1>LUTH/CMUL MUSLIM COMMUNITY SCHOOLS </br> VEGETABLE GARDEN, IDI-ARABA, LAGOS</h1></header>
+<ul>
+<!--<li> <a class="nav-link" href="#Functions" >Functions</a> </li>-->
+<!--<li> <a class="nav-link" href="#Objects" >Objects</a> </li>-->
+
+</ul>
+</nav>
+<main id="main-doc" >
+
+{% block content  %}
+
+{%  endblock %}
+
+</main>
+<footer>
+<time>Date: {{today}}</time>
+</footer>
+
+
+</body>
+
+
+</html>

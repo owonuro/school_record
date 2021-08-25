@@ -1,0 +1,74 @@
+{% extends 'base.html'%}
+
+{% block content  %}
+<header>
+<p><strong>CLASS: {{cl_name|title}} </strong></p>
+</header>
+
+{% if broad_sheet  %}
+<table summary="" >
+	<tr>
+	<th>S/N</th>	
+	<th>NAME OF PUPILS</th>
+	{%	for sub in subjects %}
+	<th colspan="3">{{sub[:4]|upper}}.</th>
+	{% endfor %}
+	<th>TOT.</th>
+	<th>PER.</th>
+	</tr>
+	</tr>
+	<tr>
+	<th></th>	
+	<th></th>
+	{%	for sub in subjects %}
+	<th>40</th>
+	<th>60</th>
+	<th>100</th>
+	{% endfor %}
+	<th >
+	
+	{{subjects|length * 100}}
+		
+	</th>
+	<th >%</th>
+	</tr>
+	{% for rec, rec2 in broad_sheet.items() %}
+	<tr>
+	<td>{{loop.index}}</td>	
+	<td>{{rec}}</td>
+	{% for rec3, rec4 in rec2.items() %}	
+	{%  if rec3 != 'la1_to2-t3' %}
+	<td>{{rec4[0]}}</td>
+	<td>{{rec4[1]}}</td>
+	<td>{{rec4[2]}}</td>
+	{% endif %}
+	{% endfor %}
+	
+	{% for rec3, rec4 in rec2.items() %}
+	
+	{%  if rec3 == 'la1_to2-t3' %}
+	<td>{{rec4[0]}}</td>
+	<td>{{rec4[0]/(subjects|length)}}</td>
+		
+	{%  endif %}
+	
+	{%  endfor %}	
+				
+	</tr>
+	{% endfor %}
+	</table>
+{% endif %}	
+
+
+{# {% for rec, rec2 in broad_sheet.items() %}
+<p>{{rec}}: {{rec2}}</p>
+{% endfor %} #}
+
+
+
+
+<p><a href='{{url_for('home')}}'>HOME</a></p>
+
+
+
+{%  endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html'%}
+
+{% block content  %}
+<header>
+<p><strong>CLASS: {{cl_name|title}} </br>SUBJECT: {{sub_name|title}}</strong></p>
+</header>
+
+
+
+
+
+{% if pup_list|length > 0 %}
+	<table summary="" >
+	<tr>
+	<th>S/N</th>	
+	<th>NAME OF PUPILS</th>
+	<th>TEST-1</th>
+	<th>TEST-2</th>
+	<th>EXAM</th>
+	<th>TOTAL</th>
+	</tr>
+	<form action='/{{cl_name}}/{{sub_name}}/score' method="POST">
+	{%  for pup in pup_list %}
+	<tr id={{loop.index}}>
+	<td>{{loop.index}}</td>
+	<td>{{pup.l_name|title + ' ' + pup.f_name|title}}</td>
+		{#The code below is used to control the loop of pupils scores#}		
+		{% if  pup.id in scores_2 %}		
+		{% for rec in scores  %}
+			{% if pup.id == rec.pupil_id %}
+	<td><input  type="number" name={{"rtest1" + "_" + rec.id|string}}   min="0" max="40" maxlength="2" value ={{rec.test_1}} required onfocus ='par(this)' onblur ='par2(this)' oninput = 'inputSum(this)'> </td>
+	<td><input  type="number" name={{"rtest2" + "_" + rec.id|string}}   min="0" max="40" maxlength="2" value ={{rec.test_2}} required onfocus ='par(this)' onblur ='par2(this)' oninput = 'inputSum(this)'> </td>
+	<td><input  type="number" name={{"rexam" + "_" + rec.id|string}}   min="0" max="60"  maxlength="2"   value = {{rec.exam}} required onfocus ='par(this)'  onblur ='par2(this)' oninput = 'inputSum(this)'> </td>
+	<td id={{'input-total' + '_' + loop.index|string}} >{{rec.test_1+ rec.test_2  + rec.exam}}</td>
+			{% endif %}
+		{% endfor %}
+		
+		{% else %}
+	<td><input  type="number" name={{"test1" + "_" + pup.id|string}}   min="0" max="40" maxlength="2" value=0  required onfocus ='par(this)' onblur ='par2(this)' oninput = 'inputSum(this)'></td>
+	<td><input  type="number" name={{"test2" + "_" + pup.id|string}}   min="0" max="40" maxlength="2" value=0 required onfocus ='par(this)' onblur ='par2(this)' oninput = 'inputSum(this)'></td>	
+	<td><input  type="number" name={{"exam" + "_" + pup.id|string}}   min="0" max="60"  maxlength="2" value=0 required onfocus ='par(this)' onblur ='par2(this)' oninput = 'inputSum(this)'></td>
+	<td id={{'input-total' + '_' + loop.index|string}} ></td>
+		
+		{% endif %}
+		
+	{% endfor %}
+	</tr>
+	</table>
+	
+	<div class="input-d" >
+<input id="save" type="submit" name="save" value="SAVE">
+</div>
+
+</form>
+{% else %}
+	<p>This class has no pupils and scores</p>
+	
+	
+		
+	<form  action="/add_pupil" method="POST" >
+<div class="input-d1" >
+
+<input  type="hidden" name="class-name"  value ='{{cl_name}}' placeholder="Enter class name" required >
+</div>
+<div class="input-d" >
+<input id="submit" type="submit" name="submit" value="Add pupils to class">
+</div>
+</form>
+	
+{% endif %}
+
+
+
+<p><a href='{{url_for('home')}}'>HOME</a></p>
+
+
+
+
+
+{%  endblock %}

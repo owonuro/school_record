@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{% block content  %}
+<div><a href='{{url_for('home')}}'><button>HOME</button></a> <a href="{{url_for('classroom',class_name =cl_name)}}"><button>PUPILS</button></a> <a href="{{url_for('classroom_sub',class_name =cl_name)}}"><button>SUBJECTS</button></a> <a href="{{url_for('classroom_sub',class_name =cl_name)}}"><button>SUBJECTS</button></a></div>
+
+
+<header><h2>CLASS: {{cl_name|title}}</h2></header>
+
+
+<p>The code for this teacher section is in progress.</p>
+
+
+
+{%  endblock %}
