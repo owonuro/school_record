@@ -37,7 +37,7 @@
 	<td>{{loop.index}}</td>	
 	<td>{{rec}}</td>
 	{% for rec3, rec4 in rec2.items() %}	
-	{%  if rec3 != 'la1_to2-t3' %}
+	{%  if rec3 != 'grand_total' %}
 	<td>{{rec4[0]}}</td>
 	<td>{{rec4[1]}}</td>
 	<td>{{rec4[2]}}</td>
@@ -46,9 +46,9 @@
 	
 	{% for rec3, rec4 in rec2.items() %}
 	
-	{%  if rec3 == 'la1_to2-t3' %}
-	<td>{{rec4[0]}}</td>
-	<td>{{rec4[0]/(subjects|length)}}</td>
+	{%  if rec3 == 'grand_total' %}
+	<td>{{rec4}}</td>
+	<td>{{rec4/(subjects|length)}}</td>
 		
 	{%  endif %}
 	
@@ -60,9 +60,11 @@
 {% endif %}	
 
 
-{# {% for rec, rec2 in broad_sheet.items() %}
+{# 
+{% for rec, rec2 in broad_sheet.items() %}
 <p>{{rec}}: {{rec2}}</p>
-{% endfor %} #}
+{% endfor %} 
+#}
 
 
 

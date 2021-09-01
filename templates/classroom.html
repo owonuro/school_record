@@ -24,7 +24,7 @@
 	{%  for pup in pupils %}
 	<tr>
 	<td>{{loop.index}}</td>
-	<td>{{pup.l_name|title + ' ' + pup.f_name|title}}</td>
+	<td><a href="{{url_for('pupil', id = pup.id)}}">{{pup.l_name|title + ' ' + pup.f_name|title}}</a></td>
 	<td>{{pup.gender|title}}</td>
 	<td>{{pup.dob}} </td>
 	<td><a href='/delete/{{pup.id}}'>delete</a></td>

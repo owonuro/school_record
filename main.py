@@ -303,6 +303,18 @@ def broad_sheet(class_name):
 	broad_sheet1 = helper.broad_sheet_f(pupils = pupils, subjects = subject_list2, scores = scores)
 	return render_template('test.html', cl_name = class_name, broad_sheet = broad_sheet1, subjects = subject_list2)
 	
+	
+@app.route('/pupil/<int:id>')
+def pupil(id):
+	pupil_d = Pupil.query.get_or_404(id)
+	
+	scores = Score.query.filter_by(pupil_id = id).all()
+	subject_list = Subject.query.filter_by(classroom = pupil_d.classroom).order_by(Subject.name).all()
+	subject_list2 = [a.name for a in subject_list]
+	pupil_scores = helper.pupil_scores(pupil = pupil_d, subjects = subject_list2, scores = scores)
+	
+	return render_template('pupil.html', pupil = pupil_d, broad_sheet = pupil_scores, subjects = subject_list2)
+	
 
 if __name__=='__main__':
 	db.create_all()

@@ -1,6 +1,7 @@
 #helper function for flask
 from datetime import datetime, date, time
 
+#This function is used at the index page to get details(no.) of pupils and subject in each class. 
 def pupil_listf(classa,pupils,subject):
 	class_l = {}
 	for cl in classa:
@@ -31,7 +32,7 @@ def broad_sheet_f(pupils, subjects, scores):
 	for pup in pupils:
 		name = pup.l_name + ' ' + pup.f_name
 		record.setdefault(name,{})
-		pupil_record = []
+		pupil_record = []		
 		for score in scores:
 			if pup.id == score.pupil_id:
 				pupil_record.append(score)
@@ -43,14 +44,52 @@ def broad_sheet_f(pupils, subjects, scores):
 						record[name][sub].append(rec.exam)
 						record[name][sub].append(rec.test_1 + rec.test_2 + rec.exam)
 						
-		record[name].setdefault('la1_to2-t3', [])
+		record[name].setdefault('grand_total', 0)
 		total =0
 		for key, value in record[name].items():
-			if len(value) > 1:
+			if key != 'grand_total' and len(value) > 1:
 				total += value[2]
-			else:
-				total += 0
-		record[name]['la1_to2-t3'].append(total)
+		record[name]['grand_total'] = total
 						
 	return record
+	
+	
+	
+def pupil_scores(pupil, subjects, scores):
+	"""This helper function is used to create the broadsheet data for easy processing."""
+	if len(subjects) < 1:
+		return None
+	elif len(scores) < 1:
+		return None
+	record = {}
+	for sub in subjects:
+		record.setdefault(sub, [])
+		for rec in scores:
+			if sub == rec.subject_name:
+					record[sub].append(rec.test_1 + rec.test_2)
+					record[sub].append(rec.exam)
+					record[sub].append(rec.test_1 + rec.test_2 + rec.exam)
+	#This is to calculate over 40					
+	record.setdefault('grand_total', [])
+	total =0
+	for key, value in record.items():
+		if key != 'grand_total' and len(value) > 1:
+			total += value[0]
+	record['grand_total'].append(total)
+	#This is to calculate over 60
+	total =0
+	for key, value in record.items():
+		if key != 'grand_total' and len(value) > 1:
+			total += value[1]
+	record['grand_total'].append(total)
+	#This is to calculate over 100
+	total =0
+	for key, value in record.items():
+		if key != 'grand_total' and len(value) > 1:
+			total += value[2]
+	record['grand_total'].append(total)
+						
+	return record
+	
+
 	

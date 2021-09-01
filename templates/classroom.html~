@@ -24,7 +24,7 @@
 	{%  for pup in pupils %}
 	<tr>
 	<td>{{loop.index}}</td>
-	<td>{{pup.l_name|title + ' ' + pup.f_name|title}}</td>
+	<td><a href="{{url_for('pupil', pup_id = pup.id)}}">{{pup.l_name|title + ' ' + pup.f_name|title}}</a></td>
 	<td>{{pup.gender|title}}</td>
 	<td>{{pup.dob}} </td>
 	<td><a href='/delete/{{pup.id}}'>delete</a></td>
@@ -65,12 +65,14 @@
 {% if subjects|length > 0 %}
 	<table summary="" >
 	<tr>
+	<th>S/N</th>
 	<th>SUBJECTS</th>	
 	<th>ACTIONS</th>
 	</tr>
 	
 	{%  for sub in subjects %}
-	<tr>	
+	<tr>
+	<td>{{loop.index}}</td>	
 	<td><a href='/{{cl_name}}/{{sub.name}}/score'>{{sub.name|title}}</a>
 	
 	
@@ -90,7 +92,7 @@
 	</td>
 	
 	
-	<td><!--<a onclick='myFunction()' href='/delete_1/{{sub.id}}'>delete</a>--></td>
+	<td><a href='/delete_1/{{sub.id}}'>delete</a></td>
 	</tr>
 	{% endfor %}
 	</table>

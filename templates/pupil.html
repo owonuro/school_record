@@ -1,0 +1,84 @@
+{% extends 'base.html'%}
+
+{% block content  %}
+<div id="menu-div"><a class="menu" href='{{url_for('home')}}'><button class="menu1">HOME</button></a> <button class="menu" id="c_pupil" onclick="displayMe(this.id)" >PUPILS</button> <button class="menu" id="c_subject"  onclick="displayMe(this.id)" >SUBJECTS</button> <button class="menu" id="c_teacher" onclick="displayMe(this.id)" >TEACHERS</button></div>
+
+
+
+
+
+<div style="display:block;" id="classroom_pupil">
+<header><h2>{{pupil.l_name|title + ' ' + pupil.f_name|title}}</h2></header>
+<p>Gender: {{pupil.gender|title}}</p>
+<p>D. O. B.: {{pupil.dob}} </p>
+<p>Class: {{pupil.classroom|upper}}</p>
+<p>Admission No.: Null</p>
+<p>Session: 2020/2021</p>
+
+</div>
+
+
+
+
+
+
+<div  style="display:none;" id="classroom_subject">
+{% if broad_sheet  %}
+<table summary="" >
+
+<tr>
+<th></th>
+<th>Max</th>
+{%	for sub in subjects %}
+<th>{{sub}}</th>
+{% endfor %}
+<th>Total</th>
+
+</tr>
+
+<tr>
+<th>Cont. Asses</th>
+<td>{{subjects|length* 40}}</td>
+{% for rec, rec2 in broad_sheet.items() %}
+{% if rec != 'grand_total' %}
+<td>{{rec2[0]}}</td>
+{% endif %}
+{% endfor %}
+<td>{{broad_sheet['grand_total'][0]}}</td>
+
+
+
+</tr>
+<tr>
+<th>Sum. Test</th>
+<td>{{subjects|length* 60}}</td>
+{% for rec, rec2 in broad_sheet.items() %}
+{% if rec != 'grand_total' %}
+<td>{{rec2[1]}}</td>
+{% endif %}
+{% endfor %}
+<td>{{broad_sheet['grand_total'][1]}}</td>
+</tr>
+<tr>
+<th>Total</th>
+<td>{{subjects|length* 100}}</td>
+{% for rec, rec2 in broad_sheet.items() %}
+{% if rec != 'grand_total' %}
+<td>{{rec2[2]}}</td>
+{% endif %}
+{% endfor %}
+<td>{{broad_sheet['grand_total'][2]}}</td>
+</tr>
+</table>
+{% endif %}
+
+<p>Percentage score is: {{broad_sheet['grand_total'][2]/(subjects|length)}}%</p>
+</div>
+
+<div  style="display:none;" id="classroom_teacher">
+
+<p>There is work in progress on the teachers section.</p>
+</div>
+
+
+{%  endblock %}
